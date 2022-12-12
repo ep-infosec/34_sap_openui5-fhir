@@ -1,0 +1,122 @@
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:l="sap.ui.layout"
+          controllerName="sap-fhir-test-app.controller.patient.PatientTable"
+          viewName="sap-fhir-test-app.view.patient.PatientTable">
+    <Page id="patientPage"
+          title="Patient Search"
+          showNavButton="true"
+          navButtonPress="onNavBack">
+        <content>
+            <HBox renderType="Bare"
+                  justifyContent="SpaceBetween"
+                  class="sapUiSmallMarginTop">
+                <HBox class="sapUiSmallMarginBegin">
+                    <VBox renderType="Bare"
+                          class="sapUiSmallMarginEnd">
+                        <Label text="Family Name:"
+                               labelFor="inPatientName" />
+                        <Input id="inPatientName"
+                               type="Text" />
+                    </VBox>
+                    <VBox renderType="Bare"
+                          class="sapUiSmallMarginEnd">
+                        <Label text="Given Name:"
+                               labelFor="inPatientGivenName" />
+                        <Input id="inPatientGivenName"
+                               type="Text" />
+                    </VBox>
+                    <VBox renderType="Bare">
+                        <Label text="Date of Birth:"
+                               labelFor="dpBirthDate" />
+                        <DatePicker id="dpBirthDate"
+                                    valueFormat="yyyy-MM-dd" />
+                    </VBox>
+                </HBox>
+                <HBox class="sapUiSmallMarginEnd">
+                    <Button id="btn_search"
+                            text="{i18n>searchBtn}"
+                            press="onPatientSearchPress"
+                            type="Emphasized" />
+                </HBox>
+            </HBox>
+            <l:HorizontalLayout>
+                <Table mode="MultiSelect"
+                       id="patientTable"
+                       growing="true"
+                       growingThreshold="10"
+                       growingScrollToLoad="false"
+                       items="{/Patient}"
+                       noDataText="{i18n>noData}">
+                    <headerToolbar>
+                        <Toolbar class="sapUiMediumMarginTop"
+                                 id="headerToolbar">
+                            <HBox id="patientTableHeaderTitleContainer"
+                                  justifyContent="SpaceBetween"
+                                  alignItems="Center"
+                                  renderType="Bare"
+                                  width="100%">
+                                <HBox alignItems="Center">
+                                    <Title text="{parts: ['i18n>tableHeader', 'i18n>tableHeaderDefaultValue'], formatter: '.formatter.formatMessage'}" />
+                                </HBox>
+                                <HBox alignItems="Center">
+                                    <Button icon="sap-icon://delete"
+                                            id="btn_delete"
+                                            press="onDeleteClicked"
+                                            type="Ghost"
+                                            class="sapUiTinyMarginEnd" />
+                                    <Button icon="sap-icon://add"
+                                            id="btn_create"
+                                            press="onCreatePatientPress"
+                                            type="Ghost"
+                                            class="sapUiTinyMarginEnd" />
+                                </HBox>
+                            </HBox>
+                        </Toolbar>
+
+                    </headerToolbar>
+                    <columns>
+                        <Column hAlign="Left">
+                            <Text text="{i18n>labelFamilyName}" />
+                        </Column>
+                        <Column hAlign="Left">
+                            <Text text="{i18n>labelGivenName}" />
+                        </Column>
+                        <Column hAlign="Left"
+                                width="130px">
+                            <Text text="{i18n>labelDateOfBirth}" />
+                        </Column>
+                        <Column hAlign="Left"
+                                width="100px">
+                            <Text text="{i18n>labelGender}" />
+                        </Column>
+                        <Column hAlign="Left">
+                            <Text text="{i18n>labelCity}" />
+                        </Column>
+                        <Column hAlign="Left">
+                            <Text text="{i18n>labelAddress}" />
+                        </Column>
+                        <!-- <Column hAlign="Left" width="200px"> <Text text="{i18n>org}"/> </Column> -->
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation"
+                                        press="onListItemPress">
+                            <cells>
+                                <Label text="{name/0/family}"
+                                       design="Bold" />
+                                <Text text="{path: 'name/0/given', formatter: '.formatPatientFirstName'}" />
+                                <Text text="{path: 'birthDate', formatter: '.utils.formatDate'}" />
+                                <Text text="{= ${gender} === 'male' ? 'M' : (${gender} === 'female' ? 'F' : '') }" />
+                                <Text text="{path: 'address/0/city'}" />
+                                <Text text="{path: 'address/0/line/0'}" />
+                                <!--<Text text="{path: 'managingOrganization/reference/name'}"/> -->
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </l:HorizontalLayout>
+        </content>
+    </Page>
+</mvc:View>

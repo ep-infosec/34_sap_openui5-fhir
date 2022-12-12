@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m"
+                         xmlns:l="sap.ui.layout">
+    <l:HorizontalLayout class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+        <Table id="tblVers"
+               noDataText="{i18n>noData}"
+               items="{/Coverage}">
+            <headerToolbar>
+                <Toolbar class="sapUiMediumMarginTop"
+                         id="toolbar1">
+                    <Title text="{i18n>insuranceTableTitle}" />
+                    <ToolbarSpacer />
+                    <MenuButton text="{i18n>insuranceMenuButton}">
+                        <menu>
+                            <Menu itemSelected="onVersicherungMenuAction">
+                                <items>
+                                    <MenuItem text="{i18n>insuranceMenuItem1}"
+                                              key="Versicherung" />
+                                    <MenuItem text="{i18n>insuranceMenuItem2}"
+                                              key="Selbstzahler" />
+                                    <MenuItem text="{i18n>insuranceMenuItem3}"
+                                              key="Fremdregulierer" />
+                                </items>
+                            </Menu>
+                        </menu>
+                    </MenuButton>
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column hAlign="Left">
+                    <Text text="{i18n>insuranceTableColPayer}" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="{i18n>insuranceTableColInsNum}" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="{i18n>insuranceTableColInsFrom}" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="{i18n>insuranceTableColInsTo}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Label text="{payor/0/reference/name}"
+                               design="Bold" />
+                        <Label text="{subscriberId}"
+                               design="Bold" />
+                        <Label text="{path:'period/start' , formatter: '.utils.formatDate'}"
+                               design="Bold" />
+                        <Label text="{path:'period/end', formatter: '.utils.formatDate'}"
+                               design="Bold" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </l:HorizontalLayout>
+</core:FragmentDefinition>

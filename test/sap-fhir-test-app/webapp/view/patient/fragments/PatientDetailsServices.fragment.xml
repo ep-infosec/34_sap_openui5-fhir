@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m"
+                         xmlns:l="sap.ui.layout">
+    <l:HorizontalLayout>
+        <Table id="tblServices"
+               items="{item}">
+            <columns>
+                <Column hAlign="Left">
+                    <Text text="Service" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="Description" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="Amount" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="Valid from" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="Valid To" />
+                </Column>
+                <Column hAlign="Left">
+                    <Text text="Comment" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{service/coding/0/code}" />
+                        <Text text="{service/coding/0/display}" />
+                        <Text text="{quantity/value}" />
+                        <Text text="{path: 'servicedPeriod/start', formatter: '.utils.formatDateTime'}" />
+                        <Text text="{path: 'servicedPeriod/end', formatter: '.utils.formatDateTime'}" />
+                        <Text text="{extension/[url=http://hl7.org/fhir/StructureDefinition/CommentForClaimItem]/extension/[url=code]/valueCodeableConcept/text}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </l:HorizontalLayout>
+</core:FragmentDefinition>

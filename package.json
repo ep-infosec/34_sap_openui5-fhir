@@ -1,0 +1,72 @@
+{
+  "name": "openui5-fhir",
+  "version": "2.3.3",
+  "author": "SAP SE",
+  "license": "Apache-2.0",
+  "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SAP/openui5-fhir.git"
+  },
+  "contributors": [
+    {
+      "name": "OpenUI5-FHIR Development Team",
+      "url": "https://github.com/SAP/openui5-fhir/graphs/contributors"
+    }
+  ],
+  "keywords": [
+    "openui5",
+    "sapui5",
+    "ui5",
+    "fhir"
+  ],
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 5"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-watch": "^8.0.0",
+    "js-beautify": "^1.14.4",
+    "jsdoc": "^3.6.10",
+    "karma": "^6.4.0",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage": "^2.2.0",
+    "karma-junit-reporter": "^2.0.1",
+    "karma-ui5": "^2.4.0",
+    "@ui5/cli": "^2.14.9",
+    "coveralls": "^3.1.1",
+    "replace-in-file": "^6.3.5",
+    "js-yaml": "^4.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/changelog": "^6.0.1"
+  },
+  "scripts": {
+    "docs": "npm run docs:prod --packageVersion=$(npm view $npm_package_name version)",
+    "docs:prod": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
+    "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
+    "serve": "npm run serve:mockserver && npm run serve:ui5",
+    "serve:ui5": "ui5 serve",
+    "serve:mockserver": "./scripts/setup_mock.sh",
+    "serve:mockserver:windows": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/setup_mock.ps1",
+    "test": "karma start",
+    "test:unit": "karma start karma-unit.conf.js",
+    "test:opa5": "karma start karma-opa5.conf.js",
+    "test-mockserver": "npm run serve:mockserver && npm test",
+    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
+    "lint": "eslint src test",
+    "lint:console": "eslint src test || true",
+    "lint:file:checkstyle": "eslint -o ./target/eslint/eslint.checkstyle.xml -f checkstyle src test",
+    "lint:watch": "esw . --watch",
+    "lint:watch:fix": "esw . --watch --fix",
+    "lint:watch:fix:debug": "esw . --watch --fix --debug",
+    "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml",
+    "prepublishOnly": "node ./scripts/build/builder.js"
+  },
+  "files": [
+    "src/sap/fhir/**",
+    "ui5.yaml",
+    "LICENSES/**",
+    ".reuse/**"
+  ]
+}
